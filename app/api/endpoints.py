@@ -85,7 +85,7 @@ async def chat_completions(request: ChatCompletionRequest, raw_request: Request)
         return await process_multimodal_request(handler, request) if is_multimodal_request \
             else await process_text_request(handler, request)
     except Exception as e:
-        logger.error(f"Error processing chat completion request: {str(e)}", exc_info=True)
+        logger.error("Error processing chat completion request: {}", str(e), exc_info=True)
         return JSONResponse(content=create_error_response(str(e)), status_code=HTTPStatus.INTERNAL_SERVER_ERROR)
     
 @router.post("/v1/embeddings")
@@ -99,7 +99,7 @@ async def embeddings(request: EmbeddingRequest, raw_request: Request):
         embeddings = await handler.generate_embeddings_response(request)
         return create_response_embeddings(embeddings, request.model)
     except Exception as e:
-        logger.error(f"Error processing embedding request: {str(e)}", exc_info=True)
+        logger.error("Error processing chat completion request: {}", str(e), exc_info=True)
         return JSONResponse(content=create_error_response(str(e)), status_code=HTTPStatus.INTERNAL_SERVER_ERROR)
 
 @router.post("/v1/images/generations")
